@@ -8,18 +8,18 @@ node{
 	  sh 'mv target/myweb*.war target/newapp.war'
         }
         stage('Build Docker Image'){           
-	 sh 'docker build -t itsmekarthik/my-app:0.0.2 .' 
+	 sh 'docker build -t itsmekarthik/my-app:0.0.3 .' 
 	 }
         }
        stage('Push Docker Image'){   
 	withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
 	sh 'docker login -u itsmekarthik -p ${dockerpass}'	
            }
-	sh 'docker push itsmekarthik/my-app:0.0.2'
+	sh 'docker push itsmekarthik/my-app:0.0.3'
 	}
       Generate pipeline script
       stage('Run Container on Server'){   
-	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/my-app:0.0.2'
+	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/my-app:0.0.3'
 	sshagent(['dockercon']) {
 	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.58 ${dockerRun}"	
             }

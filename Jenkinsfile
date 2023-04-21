@@ -16,7 +16,12 @@ node{
            }
 	sh 'docker push itsmekarthik/my-app:0.0.2'
 	}
-      Generate pipeline script
+	stage('Remove Previous Container'){
+	try{
+	sh 'docker rm -f tomcattest'
+	}catch(error){
+	}
+	}
       stage('Run Container on Server'){   
 	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/my-app:0.0.2'
 	sshagent(['dockercon']) {

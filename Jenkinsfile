@@ -12,13 +12,13 @@ node{
 	 }
         }
        stage('Push Docker Image'){   
-	withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
-	sh "docker login -u itsmekarthik -p ${dockerhubpwd}"	
+	withCredentials([string(credentialsId: 'dockerpwd', variable: '')]) {
+	sh "docker login -u itsmekarthik -p ${dockerpwd}"	
            }
 	sh 'docker push itsmekarthik/my-app:0.0.2'
 	}
       Generate pipeline script
-stage('Run Container on Server'){   
+      stage('Run Container on Server'){   
 	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/my-app:0.0.2'
 	sshagent(['dockercon']) {
 	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.58 ${dockerRun}"	

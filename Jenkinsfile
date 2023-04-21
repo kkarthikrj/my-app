@@ -10,7 +10,6 @@ node{
         stage('Build Docker Image'){           
 	 sh 'docker build -t itsmekarthik/my-app:0.0.2 .' 
 	 }
-        }
        stage('Push Docker Image'){   
 	withCredentials([string(credentialsId: 'newdockerpwd', variable: 'dockerpassnew')]) {
 	sh 'docker login -u itsmekarthik -p ${dockerpassnew}'	
@@ -24,3 +23,4 @@ node{
 	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.58 ${dockerRun}"	
             }
            }
+}

@@ -8,13 +8,13 @@ node{
 	  sh 'mv target/myweb*.war target/newapp.war'
         }
         stage('Build Docker Image'){           
-	 sh 'docker build -t itsmekarthik/my-app:0.0.2 .' 
+	 sh 'docker build -t itsmekarthik/myapp123 .' 
 	 }
        stage('Push Docker Image'){   
 	withCredentials([string(credentialsId: '0260cbb6-8b5d-4702-80f1-16038ef86adc', variable: 'dockerpwd')]) {
 	sh 'docker login -u itsmekarthik -p ${dockerpwd}'	
            }
-	sh 'docker push itsmekarthik/my-app:0.0.2'
+	sh 'docker push itsmekarthik/myapp123'
 	}
 	stage('Remove Previous Container'){
 	try{

@@ -11,8 +11,8 @@ node{
 	 sh 'docker build -t itsmekarthik/myapp123 .' 
 	 }
        stage('Push Docker Image'){   
-	withCredentials([string(credentialsId: '0260cbb6-8b5d-4702-80f1-16038ef86adc', variable: 'dockerpwd')]) {
-	sh 'docker login -u itsmekarthik -p ${dockerpwd}'	
+	withCredentials([string(credentialsId: '582135fc-6500-4b4f-a04a-89186f95e19b', variable: 'dockerhubpwd')]) {
+	sh 'docker login -u itsmekarthik -p ${dockerhubpwd}'	
            }
 	sh 'docker push itsmekarthik/myapp123'
 	}

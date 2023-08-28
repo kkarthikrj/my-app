@@ -11,8 +11,8 @@ node{
 	 sh 'docker build -t itsmekarthik/myapp123 .' 
 	 }
        stage('Push Docker Image'){   
-	withCredentials([string(credentialsId: '582135fc-6500-4b4f-a04a-89186f95e19b', variable: 'dockerhubpwd')]) {
-	sh 'docker login -u itsmekarthik -p ${dockerhubpwd}'	
+	withCredentials([string(credentialsId: 'dockerhub', variable: 'docker')]) {
+	sh 'docker login -u itsmekarthik -p ${docker}'	
            }
 	sh 'docker push itsmekarthik/myapp123'
 	}
@@ -23,7 +23,7 @@ node{
 	}
 	}
       stage('Run Container on Server'){   
-	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/my-app:0.0.2'
+	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/myapp123'
 	sshagent(['dockercon']) {
 	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.58 ${dockerRun}"	
             }

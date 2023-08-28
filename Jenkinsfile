@@ -23,9 +23,9 @@ node{
 	}
 	}
       stage('Run Container on Server'){   
-	def dockerRun = 'docker run -p 9090:8080 -d --name my-app itsmekarthik/myapp123'
-	sshagent(['dockercon']) {
-	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.11.58 ${dockerRun}"	
+	def dockerRun = 'docker run -p 9090:8080 -d --name myapp itsmekarthik/myapp123'
+	sshagent(['58c66ad9-d4dd-4fbe-bcb5-0ac42fefe6b9']) {
+	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.15.108 ${dockerRun}"	
             }
            }
 }
